@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.familyexpense.controllers.AddExpenseController"
+            style="-fx-background-color:#EEF2FF;">
+    <!-- SIDEBAR -->
+    <left>
+        <VBox styleClass="sidebar" spacing="0" minWidth="210" maxWidth="210">
+            <VBox styleClass="sidebar-header" alignment="CENTER" spacing="4">
+                <Label text="&#10133;" style="-fx-font-size:32px;"/>
+                <Label text="Add Expense" style="-fx-text-fill:white;-fx-font-weight:bold;-fx-font-size:14px;"/>
+                <Label text="Record spending" style="-fx-text-fill:#94A3B8;-fx-font-size:12px;"/>
+            </VBox>
+            <Button text="&#127968;  Dashboard" styleClass="sidebar-btn" maxWidth="Infinity" onAction="#handleBack"/>
+            <Button text="&#10133;  Add Expense" styleClass="sidebar-btn,sidebar-btn-active" maxWidth="Infinity"/>
+            <Button text="&#128203;  Expense History" styleClass="sidebar-btn" maxWidth="Infinity" onAction="#handleGoHistory"/>
+        </VBox>
+    </left>
+
+    <!-- MAIN FORM -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane" style="-fx-background-color:#EEF2FF;">
+            <VBox spacing="20" style="-fx-padding:30;-fx-max-width:640px;-fx-background-color:#EEF2FF;">
+
+                <VBox spacing="4">
+                    <Label text="&#10133; Add New Expense"
+                           style="-fx-font-size:24px;-fx-font-weight:bold;-fx-text-fill:#1E293B;"/>
+                    <Label text="Fill in the details of your expense below"
+                           style="-fx-text-fill:#64748B;-fx-font-size:13px;"/>
+                    <Label fx:id="totalLabel" text=""
+                           style="-fx-text-fill:#4361EE;-fx-font-size:13px;-fx-font-weight:bold;"/>
+                </VBox>
+
+                <VBox styleClass="card" spacing="20">
+
+                    <!-- Who Spent -->
+                    <VBox spacing="6">
+                        <Label text="&#128100; Who spent? (Family Member)" styleClass="field-label"/>
+                        <ComboBox fx:id="memberCombo" promptText="Select family member..."
+                                  styleClass="combo-box-custom" maxWidth="Infinity" prefHeight="42"/>
+                    </VBox>
+
+                    <!-- Amount -->
+                    <VBox spacing="6">
+                        <Label text="&#8377; How much? (Amount)" styleClass="field-label"/>
+                        <TextField fx:id="amountField" promptText="e.g. 500, 1200, 350..."
+                                   styleClass="text-field-custom" prefHeight="42"/>
+                    </VBox>
+
+                    <!-- Category -->
+                    <VBox spacing="6">
+                        <Label text="&#128717; What was it for? (Category)" styleClass="field-label"/>
+                        <ComboBox fx:id="categoryCombo" promptText="Select category..."
+                                  styleClass="combo-box-custom" maxWidth="Infinity" prefHeight="42"/>
+                    </VBox>
+
+                    <!-- Date -->
+                    <VBox spacing="6">
+                        <Label text="&#128197; Date" styleClass="field-label"/>
+                        <DatePicker fx:id="datePicker" styleClass="combo-box-custom"
+                                    maxWidth="Infinity" prefHeight="42"/>
+                    </VBox>
+
+                    <!-- Note -->
+                    <VBox spacing="6">
+                        <Label text="&#128221; Note (Optional — short description)" styleClass="field-label"/>
+                        <TextField fx:id="noteField" promptText="e.g. Monthly groceries, Auto fare, School books..."
+                                   styleClass="text-field-custom" prefHeight="42"/>
+                    </VBox>
+
+                    <!-- Status -->
+                    <Label fx:id="statusLabel" text=""
+                           style="-fx-font-size:13px;-fx-font-weight:bold;-fx-wrap-text:true;"/>
+
+                    <!-- Buttons -->
+                    <HBox spacing="14">
+                        <Button text="&#10133;  Save Expense!" onAction="#handleAdd"
+                                styleClass="btn-primary"
+                                style="-fx-font-size:15px;-fx-padding:13 35;"
+                                HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        <Button text="&#8592; Back" onAction="#handleBack"
+                                styleClass="btn-secondary" style="-fx-padding:13 20;"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

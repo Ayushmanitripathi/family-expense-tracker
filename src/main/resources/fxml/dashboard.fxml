@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.familyexpense.controllers.DashboardController"
+            style="-fx-background-color:#EEF2FF;">
+
+    <!-- SIDEBAR -->
+    <left>
+        <VBox styleClass="sidebar" spacing="0" minWidth="210" maxWidth="210">
+            <VBox styleClass="sidebar-header" alignment="CENTER" spacing="4">
+                <Label text="&#127968;" style="-fx-font-size:32px;"/>
+                <Label text="Family Expenses" style="-fx-text-fill:white;-fx-font-weight:bold;-fx-font-size:15px;"/>
+                <Label text="Home Tracker" style="-fx-text-fill:#94A3B8;-fx-font-size:12px;"/>
+            </VBox>
+            <Button text="&#127968;  Dashboard" styleClass="sidebar-btn,sidebar-btn-active" maxWidth="Infinity" onAction="#handleRefresh"/>
+            <Button text="&#10133;  Add Expense" styleClass="sidebar-btn" maxWidth="Infinity" onAction="#handleAddExpense"/>
+            <Button text="&#128203;  Expense History" styleClass="sidebar-btn" maxWidth="Infinity" onAction="#handleHistory"/>
+            <Button text="&#128202;  Monthly Report" styleClass="sidebar-btn" maxWidth="Infinity" onAction="#handleReport"/>
+            <Button text="&#128106;  Family Setup" styleClass="sidebar-btn" maxWidth="Infinity" onAction="#handleFamily"/>
+        </VBox>
+    </left>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane" style="-fx-background-color:#EEF2FF;">
+            <VBox spacing="18" style="-fx-padding:24;-fx-background-color:#EEF2FF;">
+
+                <!-- HEADER -->
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <VBox spacing="3">
+                        <Label fx:id="familyNameLabel" style="-fx-font-size:22px;-fx-font-weight:bold;-fx-text-fill:#1E293B;"/>
+                        <Label fx:id="monthYearLabel" style="-fx-font-size:13px;-fx-text-fill:#64748B;"/>
+                    </VBox>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="&#128260; Refresh" onAction="#handleRefresh" styleClass="btn-secondary"/>
+                </HBox>
+
+                <!-- TOP STAT CARDS -->
+                <HBox spacing="16">
+                    <!-- Total Expense -->
+                    <VBox style="-fx-background-color:linear-gradient(to right,#4361EE,#3A86FF);-fx-background-radius:16px;-fx-padding:22px;-fx-effect:dropshadow(gaussian,rgba(67,97,238,0.4),12,0,0,4);"
+                          spacing="8" HBox.hgrow="ALWAYS">
+                        <Label text="&#128176; This Month's Total Expense"
+                               style="-fx-text-fill:rgba(255,255,255,0.85);-fx-font-size:13px;"/>
+                        <Label fx:id="totalExpenseLabel" text="&#8377;0"
+                               style="-fx-font-size:36px;-fx-font-weight:bold;-fx-text-fill:white;"/>
+                        <Label fx:id="topCategoryLabel"
+                               style="-fx-text-fill:rgba(255,255,255,0.75);-fx-font-size:12px;"/>
+                    </VBox>
+                    <!-- Budget Status -->
+                    <VBox fx:id="budgetCard"
+                          style="-fx-background-color:linear-gradient(to right,#06D6A0,#1BBD9E);-fx-background-radius:16px;-fx-padding:22px;"
+                          spacing="8" HBox.hgrow="ALWAYS">
+                        <Label text="&#128202; Budget Status"
+                               style="-fx-text-fill:rgba(255,255,255,0.85);-fx-font-size:13px;"/>
+                        <Label fx:id="remainingLabel" text="Not set..."
+                               style="-fx-font-size:20px;-fx-font-weight:bold;-fx-text-fill:white;"/>
+                        <ProgressBar fx:id="budgetProgressBar" progress="0" maxWidth="Infinity"
+                                     styleClass="budget-bar" prefHeight="10"/>
+                        <HBox>
+                            <Label fx:id="budgetLabel"
+                                   style="-fx-text-fill:rgba(255,255,255,0.8);-fx-font-size:11px;"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="budgetPercentLabel"
+                                   style="-fx-text-fill:white;-fx-font-weight:bold;-fx-font-size:12px;"/>
+                        </HBox>
+                    </VBox>
+                    <!-- Savings -->
+                    <VBox styleClass="card" spacing="8" HBox.hgrow="ALWAYS">
+                        <Label text="&#128012; Savings This Month"
+                               style="-fx-text-fill:#64748B;-fx-font-size:13px;"/>
+                        <Label fx:id="savingsLabel" text="---"
+                               style="-fx-font-size:20px;-fx-font-weight:bold;-fx-text-fill:#4361EE;"/>
+                        <Label fx:id="highestSpenderLabel"
+                               style="-fx-font-size:12px;-fx-text-fill:#94A3B8;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- FAMILY MEMBERS -->
+                <VBox styleClass="card" spacing="14">
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="&#128106; Family Members — This Month's Spending"
+                               style="-fx-font-size:16px;-fx-font-weight:bold;-fx-text-fill:#1E293B;"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="+ Add Member" onAction="#handleFamily" styleClass="btn-secondary"/>
+                    </HBox>
+                    <FlowPane fx:id="memberCardsPane" hgap="14" vgap="14"/>
+                </VBox>
+
+                <!-- PIE CHART -->
+                <VBox styleClass="card" spacing="10">
+                    <Label text="&#129379; Category-wise Expense Breakdown"
+                           style="-fx-font-size:16px;-fx-font-weight:bold;-fx-text-fill:#1E293B;"/>
+                    <PieChart fx:id="categoryChart" prefHeight="310" legendSide="RIGHT"/>
+                </VBox>
+
+                <!-- QUICK ACTIONS -->
+                <HBox spacing="14">
+                    <Button text="&#10133; Add Expense" onAction="#handleAddExpense"
+                            styleClass="btn-primary" style="-fx-font-size:14px;-fx-padding:13 28;"/>
+                    <Button text="&#128203; View History" onAction="#handleHistory"
+                            styleClass="btn-secondary" style="-fx-font-size:14px;-fx-padding:13 22;"/>
+                    <Button text="&#128202; View Report" onAction="#handleReport"
+                            styleClass="btn-secondary" style="-fx-font-size:14px;-fx-padding:13 22;"/>
+                </HBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

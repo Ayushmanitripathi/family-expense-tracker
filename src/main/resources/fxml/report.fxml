@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.familyexpense.controllers.ReportController"
+            style="-fx-background-color:#EEF2FF;">
+    <left>
+        <VBox styleClass="sidebar" spacing="0" minWidth="210" maxWidth="210">
+            <VBox styleClass="sidebar-header" alignment="CENTER" spacing="4">
+                <Label text="&#128202;" style="-fx-font-size:30px;"/>
+                <Label text="Monthly Report" style="-fx-text-fill:white;-fx-font-weight:bold;-fx-font-size:13px;"/>
+            </VBox>
+            <Button text="&#127968;  Dashboard" styleClass="sidebar-btn" maxWidth="Infinity" onAction="#handleHome"/>
+            <Button text="&#10133;  Add Expense" styleClass="sidebar-btn" maxWidth="Infinity" onAction="#handleAddExpense"/>
+            <Button text="&#128203;  Expense History" styleClass="sidebar-btn" maxWidth="Infinity" onAction="#handleHistory"/>
+            <Button text="&#128202;  Monthly Report" styleClass="sidebar-btn,sidebar-btn-active" maxWidth="Infinity"/>
+            <Button text="&#128106;  Family Setup" styleClass="sidebar-btn" maxWidth="Infinity" onAction="#handleFamily"/>
+        </VBox>
+    </left>
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane" style="-fx-background-color:#EEF2FF;">
+            <VBox spacing="18" style="-fx-padding:24;-fx-background-color:#EEF2FF;">
+
+                <Label text="&#128202; Monthly Report"
+                       style="-fx-font-size:22px;-fx-font-weight:bold;-fx-text-fill:#1E293B;"/>
+
+                <!-- Month/Year Selector -->
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <Label text="Select Month:" styleClass="field-label"/>
+                    <ComboBox fx:id="monthCombo" prefWidth="140" styleClass="combo-box-custom"/>
+                    <ComboBox fx:id="yearCombo" prefWidth="100" styleClass="combo-box-custom"/>
+                    <Button text="&#128269; Load Report" onAction="#loadReport"
+                            styleClass="btn-primary" style="-fx-padding:9 20;"/>
+                    <Button text="&#128196; Export PDF" onAction="#handleExportPDF"
+                            styleClass="btn-success" style="-fx-padding:9 20;"/>
+                </HBox>
+
+                <!-- Stat Cards -->
+                <HBox spacing="16">
+                    <VBox style="-fx-background-color:linear-gradient(to right,#EF233C,#D90429);-fx-background-radius:14px;-fx-padding:18px;"
+                          spacing="6" HBox.hgrow="ALWAYS">
+                        <Label text="&#128176; Total Expenses"
+                               style="-fx-text-fill:rgba(255,255,255,0.85);-fx-font-size:13px;"/>
+                        <Label fx:id="totalExpenseLabel" text="&#8377;0"
+                               style="-fx-font-size:26px;-fx-font-weight:bold;-fx-text-fill:white;"/>
+                    </VBox>
+                    <VBox style="-fx-background-color:linear-gradient(to right,#06D6A0,#1BBD9E);-fx-background-radius:14px;-fx-padding:18px;"
+                          spacing="6" HBox.hgrow="ALWAYS">
+                        <Label text="&#128181; Total Income"
+                               style="-fx-text-fill:rgba(255,255,255,0.85);-fx-font-size:13px;"/>
+                        <Label fx:id="totalIncomeLabel" text="---"
+                               style="-fx-font-size:26px;-fx-font-weight:bold;-fx-text-fill:white;"/>
+                    </VBox>
+                    <VBox style="-fx-background-color:linear-gradient(to right,#4361EE,#3A86FF);-fx-background-radius:14px;-fx-padding:18px;"
+                          spacing="6" HBox.hgrow="ALWAYS">
+                        <Label text="&#128012; Savings"
+                               style="-fx-text-fill:rgba(255,255,255,0.85);-fx-font-size:13px;"/>
+                        <Label fx:id="savingsLabel" text="---"
+                               style="-fx-font-size:26px;-fx-font-weight:bold;-fx-text-fill:white;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Details + Chart -->
+                <HBox spacing="16">
+                    <VBox styleClass="card" spacing="14" HBox.hgrow="ALWAYS">
+                        <Label text="Report Details"
+                               style="-fx-font-size:15px;-fx-font-weight:bold;-fx-text-fill:#1E293B;"/>
+                        <Label fx:id="budgetStatusLabel"
+                               style="-fx-text-fill:#64748B;-fx-font-size:13px;-fx-wrap-text:true;"/>
+                        <Separator/>
+                        <VBox spacing="6">
+                            <Label text="Top Spending Category:" styleClass="field-label"/>
+                            <Label fx:id="topCategoryLabel"
+                                   style="-fx-font-size:14px;-fx-text-fill:#4361EE;-fx-font-weight:bold;"/>
+                        </VBox>
+                        <VBox spacing="6">
+                            <Label text="Highest Spender:" styleClass="field-label"/>
+                            <Label fx:id="topMemberLabel"
+                                   style="-fx-font-size:14px;-fx-text-fill:#EF233C;-fx-font-weight:bold;"/>
+                        </VBox>
+                        <Separator/>
+                        <Label text="Set Budget &amp; Income:"
+                               style="-fx-font-size:14px;-fx-font-weight:bold;-fx-text-fill:#1E293B;"/>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <VBox spacing="4">
+                                <Label text="Monthly Budget (&#8377;)" styleClass="field-label"/>
+                                <TextField fx:id="budgetField" promptText="e.g. 35000"
+                                           styleClass="text-field-custom" prefWidth="140" prefHeight="38"/>
+                            </VBox>
+                            <VBox spacing="4">
+                                <Label text="Monthly Income (&#8377;)" styleClass="field-label"/>
+                                <TextField fx:id="incomeField" promptText="e.g. 50000"
+                                           styleClass="text-field-custom" prefWidth="140" prefHeight="38"/>
+                            </VBox>
+                            <VBox spacing="4">
+                                <Label text=" " styleClass="field-label"/>
+                                <Button text="Save" onAction="#handleSaveBudget"
+                                        styleClass="btn-primary" style="-fx-padding:9 20;"/>
+                            </VBox>
+                        </HBox>
+                        <Label fx:id="budgetSaveStatus" text="" style="-fx-font-size:12px;"/>
+                    </VBox>
+                    <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                        <PieChart fx:id="reportChart" prefHeight="300" legendSide="BOTTOM"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

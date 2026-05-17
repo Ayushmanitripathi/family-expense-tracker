@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.familyexpense.controllers.WelcomeController"
+           styleClass="welcome-root">
+    <VBox alignment="CENTER" spacing="0">
+        <VBox fx:id="welcomeCard" styleClass="welcome-card" alignment="CENTER" spacing="18" maxWidth="460">
+            <Label text="&#127968;" style="-fx-font-size:64px;"/>
+            <Label text="Family Expense Tracker" style="-fx-font-size:28px;-fx-font-weight:bold;-fx-text-fill:#1E293B;"/>
+            <Label text="Track your monthly household expenses — simple and easy!"
+                   style="-fx-text-fill:#64748B;-fx-font-size:13px;-fx-wrap-text:true;" maxWidth="360"/>
+            <Separator prefWidth="360"/>
+            <VBox spacing="8" alignment="CENTER_LEFT" maxWidth="340">
+                <Label text="Enter your family name:" styleClass="field-label"/>
+                <TextField fx:id="familyNameField"
+                           promptText="e.g. Sharma, Gupta, Johnson..."
+                           styleClass="text-field-custom"
+                           prefWidth="340"
+                           onAction="#handleEnterKey"/>
+                <Label fx:id="errorLabel" text=""
+                       style="-fx-text-fill:#EF233C;-fx-font-size:12px;-fx-font-weight:bold;"/>
+            </VBox>
+            <Button text="  Get Started  " onAction="#handleStart"
+                    styleClass="btn-primary"
+                    style="-fx-font-size:15px;-fx-padding:13 35;"/>
+            <Label text="Sample data will be loaded on first launch so you can explore the app :)"
+                   style="-fx-font-size:11px;-fx-text-fill:#94A3B8;-fx-wrap-text:true;" maxWidth="340"/>
+        </VBox>
+    </VBox>
+</StackPane>
