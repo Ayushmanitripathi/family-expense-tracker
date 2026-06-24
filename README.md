@@ -1,4 +1,4 @@
-# 🏠 Family Expense Tracker — Ghar Ka Kharcha
+# 🏠 Family Expense Tracker 
 
 A modern, simple desktop application for tracking family household expenses. Built with **Java 17 + JavaFX + SQLite**.
 
